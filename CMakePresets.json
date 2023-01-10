@@ -1,0 +1,68 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 18,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "avr",
+            "hidden": true,
+            "description": "Target library and projects for STM32F4x1 MCU.",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "architecture": {
+                "strategy": "external"
+            },
+            "toolset": {
+                "value": "host=x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "value": "${sourceDir}/cmake/avr_gcc_toolchain.cmake",
+                    "type": "FILEPATH"
+                },
+                "STM32F4X1_GENERATE_FLASH_TARGETS": "ON"
+            }
+        },
+        {
+            "name": "attiny2313",
+            "description": "Target projects for Attiny2313 MCU.",
+            "inherits": "avr",
+            "cacheVariables": {
+                "AVR_MCU": "attiny2313"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug-attiny2313",
+            "displayName": "Debug",
+            "configurePreset": "attiny2313",
+            "inheritConfigureEnvironment": true,
+            "configuration": "Debug"
+        },
+        {
+            "name": "release-attiny2313",
+            "displayName": "Release",
+            "configurePreset": "attiny2313",
+            "inheritConfigureEnvironment": true,
+            "configuration": "Release"
+        },
+        {
+            "name": "clean-release-attiny2313",
+            "displayName": "Clean Release",
+            "inherits": "release-attiny2313",
+            "cleanFirst": true
+        },
+        {
+            "name": "release-with-debug-info-attiny2313",
+            "displayName": "Release with Debug info",
+            "configurePreset": "attiny2313",
+            "inheritConfigureEnvironment": true,
+            "configuration": "RelWithDebInfo"
+        }
+    ]
+}
