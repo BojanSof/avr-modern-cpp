@@ -14,6 +14,8 @@ target_compile_features(${TARGET}
         c_std_99
 )
 
-avr_generate_hex_file(${TARGET})
-include("../../cmake/avr_upload.cmake")
-avr_generate_flash_target(${TARGET})
+avr_generate_hex_files(${TARGET})
+
+if(AVR_GENERATE_UPLOAD_TARGETS)
+    avr_generate_flash_target(${TARGET})
+endif(AVR_GENERATE_UPLOAD_TARGETS)

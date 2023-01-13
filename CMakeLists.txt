@@ -11,4 +11,10 @@ list(APPEND CMAKE_MODULE_PATH
     "${CMAKE_CURRENT_LIST_DIR}/cmake"
 )
 
+option(AVR_GENERATE_UPLOAD_TARGETS "Generate upload targets" ON)
+
+if(AVR_GENERATE_UPLOAD_TARGETS)
+    include("avr_upload")
+endif(AVR_GENERATE_UPLOAD_TARGETS)
+
 add_subdirectory(src)

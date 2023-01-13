@@ -38,7 +38,6 @@ add_compile_options(
     -Wno-main
     -Wundef
     -pedantic
-    -Wstrict-prototypes
     -Werror
     -Wfatal-errors
     -Wl,--relax,--gc-sections
@@ -79,24 +78,15 @@ function(avr_generate_binary_file TARGET)
     )
 endfunction()
 
-function(avr_generate_hex_file TARGET)
+function(avr_generate_hex_files TARGET)
     add_custom_command(
         TARGET ${TARGET}
         POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -R .eeprom -O ihex "$<TARGET_FILE:${TARGET}>" "$<TARGET_FILE_BASE_NAME:${TARGET}>.hex"
-        COMMAND ${CMAKE_SIZE} "$<TARGET_FILE:${TARGET}>"
-        BYPRODUCTS ${TARGET}.hex
-        COMMENT "Generate flash hex file ${CMAKE_PROJECT_NAME}.hex"
-    )
-endfunction()
-
-function(avr_generate_eeprom_hex_file TARGET)
-    add_custom_command(
-        TARGET ${TARGET}
-        POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -j .eeprom -O ihex "$<TARGET_FILE:${TARGET}>" "$<TARGET_FILE_BASE_NAME:${TARGET}>_eeprom.hex"
         COMMAND ${CMAKE_SIZE} "$<TARGET_FILE:${TARGET}>"
+        BYPRODUCTS ${TARGET}.hex
         BYPRODUCTS ${TARGET}_eeprom.hex
-        COMMENT "Generate eeprom hex file ${CMAKE_PROJECT_NAME}.hex"
+        COMMENT "Generate flash and eeprom hex files"
     )
 endfunction()
