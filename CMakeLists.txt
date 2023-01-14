@@ -23,4 +23,5 @@ if(AVR_GENERATE_UPLOAD_TARGETS)
     include("avr_upload")
 endif(AVR_GENERATE_UPLOAD_TARGETS)
 
+add_subdirectory(lib)
 add_subdirectory(src)
