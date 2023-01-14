@@ -13,6 +13,12 @@ list(APPEND CMAKE_MODULE_PATH
 
 option(AVR_GENERATE_UPLOAD_TARGETS "Generate upload targets" ON)
 
+if(${AVR_MCU} STREQUAL "attiny2313")
+    add_compile_definitions(
+        MCU_ATTINY2313
+    )
+endif()
+
 if(AVR_GENERATE_UPLOAD_TARGETS)
     include("avr_upload")
 endif(AVR_GENERATE_UPLOAD_TARGETS)
