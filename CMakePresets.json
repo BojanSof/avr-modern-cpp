@@ -7,17 +7,12 @@
     },
     "configurePresets": [
         {
-            "name": "Linux-x64",
+            "name": "linux",
             "description": "Targets mainly used for unit testing the code.",
             "generator": "Ninja Multi-Config",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "architecture": {
                 "strategy": "external"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Linux"
             }
         },
         {
@@ -92,27 +87,27 @@
         {
             "name": "debug-linux-x64",
             "displayName": "Debug",
-            "configurePreset": "Linux-x64",
+            "configurePreset": "linux",
             "inheritConfigureEnvironment": true,
             "configuration": "Debug"
         },
         {
             "name": "release-linux-x64",
             "displayName": "Release",
-            "configurePreset": "Linux-x64",
+            "configurePreset": "linux",
             "inheritConfigureEnvironment": true,
             "configuration": "Release"
         },
         {
             "name": "clean-release-linux-x64",
             "displayName": "Clean Release",
-            "inherits": "Linux-x64",
+            "inherits": "linux",
             "cleanFirst": true
         },
         {
             "name": "release-with-debug-info-linux-x64",
             "displayName": "Release with Debug info",
-            "configurePreset": "Linux-x64",
+            "configurePreset": "linux",
             "inheritConfigureEnvironment": true,
             "configuration": "RelWithDebInfo"
         }
