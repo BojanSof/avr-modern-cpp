@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
     
     - name: Setup Ninja
       uses: ashutoshvarma/setup-ninja@master
@@ -19,12 +20,15 @@ jobs:
         version: 1.10.0
 
     - name: Configure CMake
-      run: cmake --preset Linux-x64
+      run: |
+        cmake --preset Linux-x64
 
     - name: Build
-      run: cmake --build --preset release-linux-x64
+      run: |
+        cmake --build --preset release-linux-x64
 
     - name: Test
       working-directory: ${{github.workspace}}/build/Linux-x64
-      run: ctest -C Release
+      run: |
+        ctest -C Release
 
