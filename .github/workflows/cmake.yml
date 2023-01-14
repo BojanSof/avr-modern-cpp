@@ -1,0 +1,30 @@
+name: CMake
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Ninja
+      uses: ashutoshvarma/setup-ninja@master
+      with:
+        version: 1.10.0
+
+    - name: Configure CMake
+      run: cmake --preset Linux-x64
+
+    - name: Build
+      run: cmake --build --preset release-linux-x64
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build/Linux-x64
+      run: ctest -C Release
+
