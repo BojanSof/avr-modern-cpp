@@ -25,7 +25,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake --build --preset release-linux-x64
+        cmake --build --preset release-linux
 
     - name: Test
       working-directory: ${{github.workspace}}/build/linux
