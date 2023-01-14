@@ -19,13 +19,18 @@ if(NOT AVR_PROGRAMMER_PORT)
         CACHE STRING "Programmer's port. Default is: usb")
 endif(NOT AVR_PROGRAMMER_PORT)
 
-function(avr_generate_flash_target TARGET)
-    set(HEX ${TARGET}.hex)
+macro(avr_set_avrdude_params)
     set(AVRDUDE_PARAMS -c ${AVR_PROGRAMMER} -P ${AVR_PROGRAMMER_PORT} -p ${AVR_MCU})
     if(NOT AVR_PROGRAMMER_BAUDRATE STREQUAL "")
         set(AVRDUDE_PARAMS ${AVRDUDE_PARAMS} -b ${AVR_PROGRAMMER_BAUDRATE})
     endif(NOT AVR_PROGRAMMER_BAUDRATE STREQUAL "")
+endmacro()
 
+function(avr_generate_flash_target TARGET)
+    set(HEX ${TARGET}.hex)
+
+    set(AVRDUDE_PARAMS "")
+    avr_set_avrdude_params()
     set(AVRDUDE_PARAMS ${AVRDUDE_PARAMS} -U flash:w:${HEX}:i)
 
     add_custom_target(${TARGET}-flash
@@ -36,11 +41,9 @@ endfunction()
 
 function(avr_generate_eeprom_target TARGET)
     set(HEX ${TARGET}_eeprom.hex)
-    set(AVRDUDE_PARAMS -c ${AVR_PROGRAMMER} -P ${AVR_PROGRAMMER_PORT} -p ${AVR_MCU})
-    if(NOT AVR_PROGRAMMER_BAUDRATE STREQUAL "")
-        set(AVRDUDE_PARAMS ${AVRDUDE_PARAMS} -b ${AVR_PROGRAMMER_BAUDRATE})
-    endif(NOT AVR_PROGRAMMER_BAUDRATE STREQUAL "")
 
+    set(AVRDUDE_PARAMS "")
+    avr_set_avrdude_params(AVRDUDE_PARAMS)
     set(AVRDUDE_PARAMS ${AVRDUDE_PARAMS} -U eeprom:w:${HEX}:i)
 
     add_custom_target(${TARGET}-eeprom

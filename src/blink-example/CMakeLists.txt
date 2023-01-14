@@ -10,7 +10,7 @@ target_sources(${TARGET}
 
 target_compile_features(${TARGET}
     PRIVATE
-        cxx_std_17
+        cxx_std_20
         c_std_99
 )
 

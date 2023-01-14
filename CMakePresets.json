@@ -24,15 +24,23 @@
                     "value": "${sourceDir}/cmake/avr_gcc_toolchain.cmake",
                     "type": "FILEPATH"
                 },
-                "STM32F4X1_GENERATE_FLASH_TARGETS": "ON"
+                "AVR_GENERATE_UPLOAD_TARGETS": "ON"
             }
         },
         {
             "name": "attiny2313",
-            "description": "Target projects for Attiny2313 MCU.",
+            "hidden": true,
+            "description": "Target projects for Attiny2313 MCU",
             "inherits": "avr",
             "cacheVariables": {
-                "AVR_MCU": "attiny2313",
+                "AVR_MCU": "attiny2313"
+            }
+        },
+        {
+            "name": "attiny2313-ArduinoISP",
+            "description": "Target projects for Attiny2313 MCU and program them with ArduinoISP",
+            "inherits": "attiny2313",
+            "cacheVariables": {
                 "AVR_PROGRAMMER": "avrisp",
                 "AVR_PROGRAMMER_BAUDRATE": "19200",
                 "AVR_PROGRAMMER_PORT": "/dev/ttyACM0"
@@ -41,29 +49,29 @@
     ],
     "buildPresets": [
         {
-            "name": "debug-attiny2313",
+            "name": "debug-attiny2313-ArduinoISP",
             "displayName": "Debug",
-            "configurePreset": "attiny2313",
+            "configurePreset": "attiny2313-ArduinoISP",
             "inheritConfigureEnvironment": true,
             "configuration": "Debug"
         },
         {
-            "name": "release-attiny2313",
+            "name": "release-attiny2313-ArduinoISP",
             "displayName": "Release",
-            "configurePreset": "attiny2313",
+            "configurePreset": "attiny2313-ArduinoISP",
             "inheritConfigureEnvironment": true,
             "configuration": "Release"
         },
         {
-            "name": "clean-release-attiny2313",
+            "name": "clean-release-attiny2313-ArduinoISP",
             "displayName": "Clean Release",
-            "inherits": "release-attiny2313",
+            "inherits": "release-attiny2313-ArduinoISP",
             "cleanFirst": true
         },
         {
-            "name": "release-with-debug-info-attiny2313",
+            "name": "release-with-debug-info-attiny2313-ArduinoISP",
             "displayName": "Release with Debug info",
-            "configurePreset": "attiny2313",
+            "configurePreset": "attiny2313-ArduinoISP",
             "inheritConfigureEnvironment": true,
             "configuration": "RelWithDebInfo"
         }
