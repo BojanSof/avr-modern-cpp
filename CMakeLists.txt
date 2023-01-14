@@ -13,15 +13,17 @@ list(APPEND CMAKE_MODULE_PATH
 
 option(AVR_GENERATE_UPLOAD_TARGETS "Generate upload targets" ON)
 
-if(${AVR_MCU} STREQUAL "attiny2313")
-    add_compile_definitions(
-        MCU_ATTINY2313
-    )
-endif()
-
-if(AVR_GENERATE_UPLOAD_TARGETS)
-    include("avr_upload")
-endif(AVR_GENERATE_UPLOAD_TARGETS)
+if(CMAKE_CROSSCOMPILING)
+    if(AVR_GENERATE_UPLOAD_TARGETS)
+        include("avr_upload")
+    endif(AVR_GENERATE_UPLOAD_TARGETS)
+endif(CMAKE_CROSSCOMPILING)
 
 add_subdirectory(lib)
 add_subdirectory(src)
+
+if(NOT CMAKE_CROSSCOMPILING)
+    enable_testing()
+    include(CTest)
+    add_subdirectory(tests)
+endif(NOT CMAKE_CROSSCOMPILING)

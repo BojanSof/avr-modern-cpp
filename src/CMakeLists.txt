@@ -1,3 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
 
-add_subdirectory(blink-example)
+if(CMAKE_CROSSCOMPILING)
+    add_subdirectory(blink-example)
+endif(CMAKE_CROSSCOMPILING)
