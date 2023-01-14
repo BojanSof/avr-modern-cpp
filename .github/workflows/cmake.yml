@@ -21,14 +21,14 @@ jobs:
 
     - name: Configure CMake
       run: |
-        cmake --preset Linux-x64
+        cmake --preset linux
 
     - name: Build
       run: |
         cmake --build --preset release-linux-x64
 
     - name: Test
-      working-directory: ${{github.workspace}}/build/Linux-x64
+      working-directory: ${{github.workspace}}/build/linux
       run: |
         ctest -C Release
 
