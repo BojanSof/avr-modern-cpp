@@ -1,16 +1,16 @@
-#ifndef _HW_REG_IO_REG_HPP
-#define _HW_REG_IO_REG_HPP
+#ifndef _MMIO_MMIO_HPP
+#define _MMIO_MMIO_HPP
 
-#include "HwReg/TypeHelper.hpp"
+#include "Mmio/Register.hpp"
 
-namespace HwReg
+namespace Mmio
 {
     template<typename AddressType, typename ValueType>
-    class IoReg
+    class Mmio
     {
-        using RegType = TypeHelper<AddressType, ValueType>;
+        using RegType = Register<AddressType, ValueType>;
         public:
-            explicit constexpr IoReg(const AddressType& baseAddr)
+            explicit constexpr Mmio(const AddressType& baseAddr)
                 : baseAddr_{baseAddr} { }
             constexpr auto operator[](const AddressType& offset) const
             {
@@ -21,4 +21,4 @@ namespace HwReg
     }; 
 }
 
-#endif //_HW_REG_IO_REG_HPP
+#endif //_MMIO_MMIO_HPP

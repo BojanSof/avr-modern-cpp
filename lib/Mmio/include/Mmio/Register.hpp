@@ -1,15 +1,15 @@
-#ifndef _HW_REG_TYPE_HELPER_HPP
-#define _HW_REG_TYPE_HELPER_HPP
+#ifndef _MMIO_REGISTER_HPP
+#define _MMIO_REGISTER_HPP
 
-#include "stdint.h"
+#include <stdint.h>
 
-namespace HwReg
+namespace Mmio
 {
     template<typename AddressType, typename ValueType>
-    struct TypeHelper
+    struct Register
     {
         public:
-            explicit constexpr TypeHelper(const AddressType& addr)
+            explicit constexpr Register(const AddressType& addr)
                 : addr_{addr} { }
             operator ValueType () const
             {
@@ -24,13 +24,13 @@ namespace HwReg
     };
 
     template<typename AddressType>
-    using Byte = TypeHelper<AddressType, uint8_t>;
+    using ByteRegister = Register<AddressType, uint8_t>;
 
     template<typename AddressType>
-    using HalfWord = TypeHelper<AddressType, uint16_t>;
+    using HalfWordRegister = Register<AddressType, uint16_t>;
 
     template<typename AddressType>
-    using Word = TypeHelper<AddressType, uint32_t>;
+    using WordRegister = Register<AddressType, uint32_t>;
 }
 
-#endif //_HW_REG_TYPE_HELPER_HPP
+#endif //_MMIO_REGISTER_HPP
