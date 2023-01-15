@@ -11,13 +11,25 @@ namespace Mmio
         public:
             explicit constexpr Register(const AddressType& addr)
                 : addr_{addr} { }
+
             operator ValueType () const
             {
                 return *reinterpret_cast<volatile ValueType*>(addr_);
             }
-            void operator=(const ValueType val) const
+
+            void operator=(const ValueType& val) const
             {
                 *reinterpret_cast<volatile ValueType*>(addr_) = val;
+            }
+
+            void operator|=(const ValueType& val)
+            {
+                *this = static_cast<ValueType>(*this) | val;
+            }
+
+            void operator&=(const ValueType& val)
+            {
+                *this = static_cast<ValueType>(*this) & val;
             }
         private:
             const AddressType addr_;
