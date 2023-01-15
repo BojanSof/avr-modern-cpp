@@ -31,6 +31,16 @@ namespace Mmio
             {
                 *this = static_cast<ValueType>(*this) & val;
             }
+
+            void setBit(const uint8_t nBit)
+            {
+                *this |= (1 << nBit);
+            }
+
+            void clearBit(const uint8_t nBit)
+            {
+                *this &= ~(1 << nBit);
+            }
         private:
             const AddressType addr_;
     };
