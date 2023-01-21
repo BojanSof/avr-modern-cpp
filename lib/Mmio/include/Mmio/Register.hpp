@@ -41,6 +41,23 @@ namespace Mmio
             {
                 *this &= ~(1 << nBit);
             }
+
+            void changeBit(const uint8_t nBit, const bool val)
+            {
+                if(val == false)
+                {
+                    clearBit(nBit);
+                }
+                else
+                {
+                    setBit(nBit);
+                }
+            }
+
+            bool operator()(const uint8_t nBit)
+            {
+                return static_cast<ValueType>(*this) & (1 << nBit);
+            }
         private:
             const AddressType addr_;
     };

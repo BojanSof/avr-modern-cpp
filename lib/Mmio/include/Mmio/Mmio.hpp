@@ -14,7 +14,7 @@ namespace Mmio
                 : baseAddr_{baseAddr} { }
             constexpr auto operator[](const AddressType& offset) const
             {
-                return RegType{baseAddr_ + offset};
+                return RegType{static_cast<AddressType>(baseAddr_ + offset)};
             }
         private:
             const AddressType baseAddr_;
