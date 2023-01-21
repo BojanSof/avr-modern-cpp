@@ -44,12 +44,21 @@
         },
         {
             "name": "attiny2313-ArduinoISP",
-            "description": "Target projects for Attiny2313 MCU and program them with ArduinoISP",
+            "description": "Target projects for Attiny2313 MCU and upload them with ArduinoISP",
             "inherits": "attiny2313",
             "cacheVariables": {
                 "AVR_PROGRAMMER": "avrisp",
                 "AVR_PROGRAMMER_BAUDRATE": "19200",
                 "AVR_PROGRAMMER_PORT": "/dev/ttyACM0"
+            }
+        },
+        {
+            "name": "attiny2313-USBASP",
+            "description": "Target projects for Attiny2313 MCU and upload them with USBASP",
+            "inherits": "attiny2313",
+            "cacheVariables": {
+                "AVR_PROGRAMMER": "usbasp",
+                "AVR_PROGRAMMER_PORT": "usb"
             }
         }
     ],
