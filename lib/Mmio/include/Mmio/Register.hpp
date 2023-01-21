@@ -44,13 +44,13 @@ namespace Mmio
 
             void changeBit(const uint8_t nBit, const bool val)
             {
-                if(val == false)
+                if(val)
                 {
-                    clearBit(nBit);
+                    setBit(nBit);
                 }
                 else
                 {
-                    setBit(nBit);
+                    clearBit(nBit);
                 }
             }
 

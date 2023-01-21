@@ -44,7 +44,7 @@ namespace Avr
             // ex. OL (output, low initial level)
             uint8_t iPos = 0;
             if(configStr[iPos] == '\0') return {}; //< invalid config string
-            GpioConfig desc{};
+            GpioConfig config{};
             // input or output
             bool output = false;
             if(configStr[iPos] == 'I')
@@ -56,19 +56,19 @@ namespace Avr
                 output = true;
             }
             else return {}; //< invalid config string
-            desc.output = output;
+            config.output = output;
             ++iPos;
-            if(configStr[iPos] == '\0') return desc;
+            if(configStr[iPos] == '\0') return config;
             // input or output specific options
             bool level = false;
             // if input, check if maybe P is added (PULL-UP)
-            if(output && configStr[iPos] == 'P')
+            if(!output && configStr[iPos] == 'P')
             {
                 ++iPos;
                 level = true;
             }
             // if output, check initial level
-            else if(!output)
+            else if(output)
             {
                 if(configStr[iPos] == 'H')
                 {
@@ -81,8 +81,8 @@ namespace Avr
                     ++iPos;
                 }
             }
-            desc.level = level;
-            return desc;
+            config.level = level;
+            return config;
         }
 
         // compile-time tests
@@ -105,14 +105,14 @@ namespace Avr
             public:
                 explicit constexpr Pin(const char* const gpioStr)
                     : regs_{static_cast<AddressType>(parseGpio(gpioStr).port)}
-                    , pin_{static_cast<AddressType>(parseGpio(gpioStr).pin)}
+                    , pin_{parseGpio(gpioStr).pin}
                 { }
 
                 void configure(const char* const configStr) const
                 {
                     auto config = parseConfigString(configStr);
                     setMode(config.output);
-                    setLevel(config.level);
+                    write(config.level);
                 }
 
                 bool read() const
@@ -120,7 +120,7 @@ namespace Avr
                     return regs_[GpioRegs::PIN](pin_);
                 }
 
-                void setLevel(const bool level) const
+                void write(const bool level) const
                 {
                     regs_[GpioRegs::PORT].changeBit(pin_, level);
                 }

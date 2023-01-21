@@ -10,10 +10,10 @@ namespace Avr
 #endif
     // GPIO related
 #if defined(__AVR_ATtiny2313__)
-    static constexpr AddressType GPIOA{0x19};
-    static constexpr AddressType GPIOB{0x16};
+    static constexpr AddressType GPIOA{0x19 + 0x20};
+    static constexpr AddressType GPIOB{0x16 + 0x20};
     static constexpr AddressType GPIOC{0x00}; //< invalid
-    static constexpr AddressType GPIOD{0x10};
+    static constexpr AddressType GPIOD{0x10 + 0x20};
     static constexpr AddressType GPIOE{0x00}; //< invalid
 #endif
     enum class GpioPort : AddressType

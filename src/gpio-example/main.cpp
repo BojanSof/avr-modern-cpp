@@ -1,18 +1,19 @@
 #define F_CPU 1000000UL // 1 MHz
 
+#include <avr/io.h>
 #include <util/delay.h>
 
 #include <AvrHw/Gpio.hpp>
 
 int main(void)
 {
-    constexpr Avr::Gpio::Pin pin{"D0"};
-    pin.configure("OL");
+    constexpr Avr::Gpio::Pin led{"D0"};
+    led.configure("OH");
     while (1)
     {
-        pin.setLevel(true);
+        led.write(true);
         _delay_ms(500);
-        pin.setLevel(false);
+        led.write(false);
         _delay_ms(500);
     }
 }
