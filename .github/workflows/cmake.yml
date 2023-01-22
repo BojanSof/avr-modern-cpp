@@ -28,7 +28,6 @@ jobs:
         cmake --build --preset release-linux
 
     - name: Test
-      working-directory: ${{github.workspace}}/build/linux
       run: |
-        ctest -C Release
+        ctest --preset linux
 

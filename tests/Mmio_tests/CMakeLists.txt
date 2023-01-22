@@ -9,4 +9,5 @@ target_link_libraries(MmioTests
     GTest::gtest_main
 )
 
-add_test(MmioTests MmioTests)
+include(GoogleTest)
+gtest_discover_tests(MmioTests MmioTests)

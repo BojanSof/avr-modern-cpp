@@ -117,5 +117,18 @@
             "inheritConfigureEnvironment": true,
             "configuration": "RelWithDebInfo"
         }
+    ],
+    "testPresets": [
+        {
+            "name": "linux",
+            "configurePreset": "linux",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        }
     ]
 }
